@@ -6,7 +6,13 @@ public class Player implements Playable{
     }
 
     public void next(GameArea area, Drawable view) {
-        int index = view.getNext();
-        area.set(index, symbol);
+        int index;
+        while(true){
+            try {
+                index = view.getNext();
+                area.set(index, symbol);
+                break;
+            } catch (Exception e) {}
+        }
     }
 }

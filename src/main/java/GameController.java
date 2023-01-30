@@ -40,6 +40,8 @@ public class GameController {
         while(area.getCondition() == GameCondition.UNDEFINED) {
             player1.next(area, view);
             view.draw(area);
+            if(area.getCondition() != GameCondition.UNDEFINED)
+                break;
             player2.next(area, view);
             view.draw(area);
         }

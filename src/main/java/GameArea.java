@@ -3,7 +3,7 @@ public class GameArea {
 
     public GameArea() {
         for(int i = 0; i < 9; i++) {
-            array[i] = '0';
+            array[i] = ' ';
         }
     }
 
@@ -11,7 +11,9 @@ public class GameArea {
         array = arr;
     }
 
-    public void set(int index, char symbol) {
+    public void set(int index, char symbol) throws NotEmptyItemException{
+        if (array[index] != ' ')
+            throw new NotEmptyItemException();
         array[index] = symbol;
     }
 
@@ -25,9 +27,9 @@ public class GameArea {
                     return GameCondition.WINNER_IS_X;
             }  // просмотр строк
             else if(array[i*3] == array[i*3 + 1] && array[i*3] == array[i*3 + 2]) {
-                if(array[i] == 'O')
+                if(array[i*3] == 'O')
                     return GameCondition.WINNER_IS_O;
-                else if(array[i] == 'X')
+                else if(array[i*3] == 'X')
                     return GameCondition.WINNER_IS_X;
             }
         }
@@ -40,7 +42,7 @@ public class GameArea {
                 return GameCondition.WINNER_IS_X;
         }
         // проверка побочной диагонали
-        if(array[2] == array[4] && array[2] == array[6]) {
+        if(array[2] == array[4] && array[4] == array[6]) {
             if(array[2] == 'O')
                 return GameCondition.WINNER_IS_O;
             else if(array[2] == 'X')
@@ -49,7 +51,7 @@ public class GameArea {
 
         // если есть хотя бы одна свободная клетка, то игра продолжается
         for(int i = 0; i < 9; i++) {
-            if(array[i] == '0') {
+            if(array[i] == ' ') {
                 return GameCondition.UNDEFINED;
             }
         }
